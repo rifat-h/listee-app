@@ -16,14 +16,17 @@ class Listing extends Model
         'status', 'is_featured', 'views', 'expires_at',
     ];
 
-    protected $casts = [
-        'gallery' => 'array',
-        'expires_at' => 'datetime',
-        'is_featured' => 'boolean',
-        'price' => 'decimal:2',
-        'latitude' => 'decimal:7',
-        'longitude' => 'decimal:7',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'gallery' => 'array',
+            'expires_at' => 'datetime',
+            'is_featured' => 'boolean',
+            'price' => 'decimal:2',
+            'latitude' => 'decimal:7',
+            'longitude' => 'decimal:7',
+        ];
+    }
 
     public function user()
     {

@@ -26,7 +26,7 @@ class HomeController extends Controller
                         ->with('user')
                         ->latest()->take(3)->get();
 
-        return view('home.index', compact(
+        return view('home', compact(
             'categories',
             'featuredAds',
             'latestAds',
