@@ -9,6 +9,8 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\MessageController;
 
 // ========================
 // Public Routes
@@ -67,6 +69,12 @@ Route::middleware(['auth', 'verified'])->prefix('user')->name('user.')->group(fu
     Route::get('/messages', [UserController::class, 'messages'])->name('messages');
     Route::get('/reviews', [UserController::class, 'reviews'])->name('reviews');
 });
+
+// Reviews
+Route::post('/reviews/{listing}', [ReviewController::class, 'store'])->name('reviews.store')->middleware('auth');
+
+// Messages
+Route::post('/messages', [MessageController::class, 'store'])->name('messages.store')->middleware('auth');
 
 // Breeze Profile Routes
 Route::middleware('auth')->group(function () {
