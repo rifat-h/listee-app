@@ -84,8 +84,8 @@
             @empty
             <div class="col-12 text-center py-5">
                 <i class="fas fa-search fa-3x text-muted mb-3"></i>
-                <h4 class="text-muted">কোনো Listing পাওয়া যায়নি</h4>
-                <p class="text-muted">অন্য keyword বা category দিয়ে খুঁজুন</p>
+                <h4 class="text-muted">No Listings Found</h4>
+                <p class="text-muted">Try adjusting your search or filter criteria.</p>
             </div>
             @endforelse
         </div>

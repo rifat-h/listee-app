@@ -9,12 +9,7 @@ class BlogPost extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'title', 'slug', 'content', 'image', 'tags', 'is_published', 'published_at'];
-
-    protected function casts(): array
-    {
-        return ['published_at' => 'datetime'];
-    }
+    protected $fillable = ['user_id', 'title', 'slug', 'content', 'image', 'status', 'views'];
 
     public function user()
     {

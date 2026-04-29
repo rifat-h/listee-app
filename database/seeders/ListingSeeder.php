@@ -12,7 +12,7 @@ class ListingSeeder extends Seeder
 {
     public function run(): void
     {
-        $users = User::where('is_admin', false)->pluck('id')->toArray();
+        $users = User::where('role', 'user')->pluck('id')->toArray();
         $categories = Category::pluck('id', 'name')->toArray();
 
         $listings = [

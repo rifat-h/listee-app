@@ -29,7 +29,7 @@ class ListingController extends Controller
         $listings = $query->latest()->paginate(12);
         $categories = Category::where('is_active', true)->get();
 
-        return view('listings.grid', compact('listings', 'categories'));
+        return view('listings.index', compact('listings', 'categories'));
     }
 
     public function gridSidebar(Request $request)
@@ -62,13 +62,14 @@ class ListingController extends Controller
     {
         $listing = Listing::where('slug', $slug)->with(['user', 'category'])->firstOrFail();
         $listing->increment('views');
+        $listing->load('reviews.user');
 
         $relatedListings = Listing::where('category_id', $listing->category_id)
                             ->where('id', '!=', $listing->id)
                             ->where('status', 'active')
                             ->take(4)->get();
 
-        return view('listings.details', compact('listing', 'relatedListings'));
+        return view('listings.show', compact('listing', 'relatedListings'));
     }
 
     public function store(Request $request)
