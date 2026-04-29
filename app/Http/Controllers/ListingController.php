@@ -103,7 +103,7 @@ class ListingController extends Controller
             'category_id' => $validated['category_id'],
             'location'    => $validated['location'],
             'image'       => $imagePath,
-            'gallery'     => json_encode($galleryPaths),
+            'gallery'     => $galleryPaths,
             'status'      => 'pending',
         ]);
 
