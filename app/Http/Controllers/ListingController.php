@@ -26,7 +26,9 @@ class ListingController extends Controller
             $query->where('location', 'like', '%'.$request->location.'%');
         }
 
-        $listings = $query->latest()->paginate(12);
+        $this->applySorting($query, $request->sort);
+
+        $listings = $query->paginate(12);
         $categories = Category::where('is_active', true)->get();
 
         return view('listings.index', compact('listings', 'categories'));
@@ -34,28 +36,47 @@ class ListingController extends Controller
 
     public function gridSidebar(Request $request)
     {
-        $listings = Listing::where('status', 'active')->latest()->paginate(9);
+        $query = Listing::where('status', 'active');
+        $this->applySorting($query, $request->sort);
+        $listings = $query->paginate(9);
         $categories = Category::where('is_active', true)->withCount('listings')->get();
         return view('listings.grid-sidebar', compact('listings', 'categories'));
     }
 
     public function listSidebar(Request $request)
     {
-        $listings = Listing::where('status', 'active')->latest()->paginate(10);
+        $query = Listing::where('status', 'active');
+        $this->applySorting($query, $request->sort);
+        $listings = $query->paginate(10);
         $categories = Category::where('is_active', true)->withCount('listings')->get();
         return view('listings.list-sidebar', compact('listings', 'categories'));
     }
 
     public function gridMap(Request $request)
     {
-        $listings = Listing::where('status', 'active')->latest()->paginate(12);
+        $query = Listing::where('status', 'active');
+        $this->applySorting($query, $request->sort);
+        $listings = $query->paginate(12);
         return view('listings.grid-map', compact('listings'));
     }
 
     public function listMap(Request $request)
     {
-        $listings = Listing::where('status', 'active')->latest()->paginate(10);
+        $query = Listing::where('status', 'active');
+        $this->applySorting($query, $request->sort);
+        $listings = $query->paginate(10);
         return view('listings.list-map', compact('listings'));
+    }
+
+    private function applySorting($query, ?string $sort): void
+    {
+        match ($sort) {
+            'price_low'  => $query->orderBy('price', 'asc'),
+            'price_high' => $query->orderBy('price', 'desc'),
+            'popular'    => $query->orderBy('views', 'desc'),
+            'oldest'     => $query->orderBy('created_at', 'asc'),
+            default      => $query->latest(),
+        };
     }
 
     public function details($slug)
