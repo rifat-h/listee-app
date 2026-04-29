@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Bookmark;
 use App\Models\Listing;
+use App\Models\Message;
+use App\Models\User;
 use App\Traits\HasImageUpload;
 use Illuminate\Http\Request;
 
@@ -102,9 +104,61 @@ class UserController extends Controller
         return back()->with('success', 'Bookmark সরানো হয়েছে!');
     }
 
-    public function messages()
+    public function messages(Request $request)
     {
-        return view('user.messages');
+        $userId = auth()->id();
+
+        $allMessages = Message::where('sender_id', $userId)
+            ->orWhere('receiver_id', $userId)
+            ->with(['sender', 'receiver', 'listing'])
+            ->latest()
+            ->get();
+
+        $grouped = $allMessages->groupBy(function ($msg) use ($userId) {
+            return $msg->sender_id == $userId ? $msg->receiver_id : $msg->sender_id;
+        });
+
+        $conversations = $grouped->map(function ($messages, $otherUserId) use ($userId) {
+            $otherUser = $messages->first()->sender_id == $userId
+                ? $messages->first()->receiver
+                : $messages->first()->sender;
+
+            $conv = new \stdClass();
+            $conv->id = $otherUserId;
+            $conv->otherUser = $otherUser;
+            $conv->lastMessage = $messages->first();
+            $conv->listing = $messages->first()->listing;
+            $conv->unread = $messages->where('receiver_id', $userId)->where('is_read', false)->isNotEmpty();
+            $conv->unread_count = $messages->where('receiver_id', $userId)->where('is_read', false)->count();
+
+            return $conv;
+        })->values();
+
+        $unreadCount = Message::where('receiver_id', $userId)->where('is_read', false)->count();
+
+        $activeConversation = $request->get('conversation');
+        $chatUser = null;
+        $chatMessages = collect();
+
+        if ($activeConversation) {
+            $chatUser = User::find($activeConversation);
+            if ($chatUser) {
+                $chatMessages = Message::where(function ($q) use ($userId, $activeConversation) {
+                    $q->where('sender_id', $userId)->where('receiver_id', $activeConversation);
+                })->orWhere(function ($q) use ($userId, $activeConversation) {
+                    $q->where('sender_id', $activeConversation)->where('receiver_id', $userId);
+                })->with(['sender', 'receiver'])->oldest()->get();
+
+                Message::where('sender_id', $activeConversation)
+                    ->where('receiver_id', $userId)
+                    ->where('is_read', false)
+                    ->update(['is_read' => true]);
+            }
+        }
+
+        return view('user.messages', compact(
+            'conversations', 'unreadCount', 'activeConversation', 'chatUser'
+        ))->with('messages', $chatMessages);
     }
 
     public function reviews()
