@@ -10,10 +10,21 @@ class Listing extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'category_id', 'location_id', 'title', 'slug',
-        'description', 'price', 'original_price', 'condition',
-        'city', 'address', 'is_featured', 'status', 'views_count',
+        'user_id', 'category_id', 'title', 'slug',
+        'description', 'price', 'location', 'image', 'gallery',
+        'phone', 'email', 'website',
+        'latitude', 'longitude',
+        'status', 'is_featured', 'views', 'expires_at',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'gallery' => 'array',
+            'is_featured' => 'boolean',
+            'expires_at' => 'datetime',
+        ];
+    }
 
     public function user()
     {
@@ -23,11 +34,6 @@ class Listing extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
-    }
-
-    public function location()
-    {
-        return $this->belongsTo(Location::class);
     }
 
     public function images()

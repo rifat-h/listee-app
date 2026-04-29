@@ -29,7 +29,7 @@ class ListingController extends Controller
         $listings = $query->latest()->paginate(12);
         $categories = Category::where('is_active', true)->get();
 
-        return view('listings.grid', compact('listings', 'categories'));
+        return view('listings.index', compact('listings', 'categories'));
     }
 
     public function gridSidebar(Request $request)
@@ -68,7 +68,7 @@ class ListingController extends Controller
                             ->where('status', 'active')
                             ->take(4)->get();
 
-        return view('listings.details', compact('listing', 'relatedListings'));
+        return view('listings.show', compact('listing', 'relatedListings'));
     }
 
     public function store(Request $request)

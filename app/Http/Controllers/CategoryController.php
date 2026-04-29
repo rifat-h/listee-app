@@ -19,7 +19,8 @@ class CategoryController extends Controller
         $listings = Listing::where('category_id', $category->id)
                     ->where('status', 'active')
                     ->latest()->paginate(12);
+        $categories = Category::where('is_active', true)->get();
 
-        return view('listings.grid', compact('listings', 'category'));
+        return view('listings.index', compact('listings', 'categories', 'category'));
     }
 }

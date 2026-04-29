@@ -19,7 +19,7 @@
 <!-- Filter Bar -->
 <section class="py-3 bg-white border-bottom">
     <div class="container">
-        <form action="{{ url('/listings') }}" method="GET" class="row g-2 align-items-center">
+        <form action="{{ route('listings.index') }}" method="GET" class="row g-2 align-items-center">
             <div class="col-md-3">
                 <select name="category" class="form-select">
                     <option value="">All Categories</option>

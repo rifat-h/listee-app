@@ -62,9 +62,9 @@
                                     {{-- Meta --}}
                                     <div class="blog-card-meta">
                                         <div class="blog-author">
-                                            <img src="{{ $post->author->avatar ?? asset('images/default-avatar.png') }}"
+                                            <img src="{{ ($post->user->avatar ?? false) ? asset('storage/' . $post->user->avatar) : asset('images/default-avatar.png') }}"
                                                  alt="author">
-                                            <span>{{ $post->author->name ?? 'Admin' }}</span>
+                                            <span>{{ $post->user->name ?? 'Admin' }}</span>
                                         </div>
                                         <a href="{{ route('blog.show', $post->slug ?? $post->id) }}"
                                            class="read-more-link">

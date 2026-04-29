@@ -52,7 +52,7 @@
                                     <span><i class="fas fa-tag text-danger"></i> {{ $listing->category->name ?? 'N/A' }}</span>
                                     <span><i class="fas fa-map-marker-alt"></i> {{ $listing->location }}</span>
                                     <span><i class="fas fa-calendar"></i> {{ $listing->created_at->format('d M, Y') }}</span>
-                                    <span><i class="fas fa-eye"></i> {{ $listing->views_count ?? 0 }} views</span>
+                                    <span><i class="fas fa-eye"></i> {{ $listing->views ?? 0 }} views</span>
                                 </div>
                             </div>
                             <div class="text-end">
