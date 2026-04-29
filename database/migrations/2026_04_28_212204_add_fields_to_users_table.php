@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('address')->nullable()->after('bio');
             $table->string('city')->nullable()->after('address');
             $table->string('country')->nullable()->after('city');
-            $table->enum('role', ['user', 'admin'])->default('user')->after('country');
-            $table->boolean('is_active')->default(true)->after('role');
-            $table->boolean('is_admin')->default(false)->after('is_active');
+            $table->string('location')->nullable()->after('country');
+            $table->enum('role', ['user', 'admin'])->default('user')->after('location');
+            $table->boolean('is_admin')->default(false)->after('role');
         });
     }
 
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->dropColumn([
                 'phone', 'about', 'avatar', 'bio',
                 'address', 'city', 'country',
-                'role', 'is_active', 'is_admin',
+                'location', 'role', 'is_admin',
             ]);
         });
     }
