@@ -57,19 +57,13 @@
                             </div>
                             <div class="text-end">
                                 <h3 class="text-danger fw-bold">${{ number_format($listing->price) }}</h3>
-                                @if($listing->original_price)
-                                    <small class="text-muted text-decoration-line-through">
-                                        ${{ number_format($listing->original_price) }}
-                                    </small>
-                                @endif
+
                             </div>
                         </div>
                         @if($listing->is_featured)
                             <span class="badge bg-success">Featured</span>
                         @endif
-                        @if($listing->condition)
-                            <span class="badge bg-info">{{ ucfirst($listing->condition) }}</span>
-                        @endif
+
                     </div>
                 </div>
 
@@ -83,23 +77,7 @@
                     </div>
                 </div>
 
-                <!-- Features -->
-                @if($listing->features)
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-body">
-                        <h4 class="fw-bold mb-3">Features</h4>
-                        <div class="row">
-                            @foreach(is_array($listing->features) ? $listing->features : explode("\n", $listing->features) as $feature)
-                                @if(trim($feature))
-                                <div class="col-md-6 mb-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i> {{ trim($feature) }}
-                                </div>
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                @endif
+
 
                 <!-- Reviews Section -->
                 <div class="card border-0 shadow-sm mb-4">

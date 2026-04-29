@@ -52,24 +52,18 @@
                                     <span><i class="fas fa-tag text-danger"></i> {{ $listing->category->name ?? 'N/A' }}</span>
                                     <span><i class="fas fa-map-marker-alt"></i> {{ $listing->location }}</span>
                                     <span><i class="fas fa-calendar"></i> {{ $listing->created_at->format('d M, Y') }}</span>
-                                    <span><i class="fas fa-eye"></i> {{ $listing->views_count ?? 0 }} views</span>
+                                    <span><i class="fas fa-eye"></i> {{ $listing->views ?? 0 }} views</span>
                                 </div>
                             </div>
                             <div class="text-end">
                                 <h3 class="text-danger fw-bold">${{ number_format($listing->price) }}</h3>
-                                @if($listing->original_price)
-                                    <small class="text-muted text-decoration-line-through">
-                                        ${{ number_format($listing->original_price) }}
-                                    </small>
-                                @endif
+
                             </div>
                         </div>
                         @if($listing->is_featured)
                             <span class="badge bg-success">Featured</span>
                         @endif
-                        @if($listing->condition)
-                            <span class="badge bg-info">{{ ucfirst($listing->condition) }}</span>
-                        @endif
+
                     </div>
                 </div>
 
@@ -83,23 +77,7 @@
                     </div>
                 </div>
 
-                <!-- Features -->
-                @if($listing->features)
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-body">
-                        <h4 class="fw-bold mb-3">Features</h4>
-                        <div class="row">
-                            @foreach(is_array($listing->features) ? $listing->features : explode("\n", $listing->features) as $feature)
-                                @if(trim($feature))
-                                <div class="col-md-6 mb-2">
-                                    <i class="fas fa-check-circle text-success me-2"></i> {{ trim($feature) }}
-                                </div>
-                                @endif
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                @endif
+
 
                 <!-- Reviews Section -->
                 <div class="card border-0 shadow-sm mb-4">

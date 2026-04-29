@@ -26,7 +26,6 @@ Route::prefix('listings')->name('listings.')->group(function () {
     Route::get('/list-sidebar', [ListingController::class, 'listSidebar'])->name('list-sidebar');
     Route::get('/grid-map', [ListingController::class, 'gridMap'])->name('grid-map');
     Route::get('/list-map', [ListingController::class, 'listMap'])->name('list-map');
-    Route::get('/{slug}', [ListingController::class, 'details'])->name('details');
     Route::get('/{slug}', [ListingController::class, 'details'])->name('show');
 });
 
