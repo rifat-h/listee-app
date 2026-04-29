@@ -64,7 +64,12 @@ class UserController extends Controller
 
     public function bookmarks()
     {
-        return view('user.bookmarks');
+        $bookmarks = Bookmark::where('user_id', auth()->id())
+            ->with('listing.category')
+            ->latest()
+            ->paginate(10);
+
+        return view('user.bookmarks', compact('bookmarks'));
     }
 
     public function toggleBookmark(Listing $listing)
