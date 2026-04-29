@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bookmark;
 use App\Models\Listing;
 use App\Models\Message;
+use App\Models\Review;
 use App\Models\User;
 use App\Traits\HasImageUpload;
 use Illuminate\Http\Request;
@@ -163,6 +164,57 @@ class UserController extends Controller
 
     public function reviews()
     {
-        return view('user.reviews');
+        $userId = auth()->id();
+        $userListingIds = Listing::where('user_id', $userId)->pluck('id');
+
+        $receivedReviews = Review::whereIn('listing_id', $userListingIds)
+            ->with(['user', 'listing'])
+            ->latest()
+            ->paginate(10);
+
+        $givenReviews = Review::where('user_id', $userId)
+            ->with(['listing.user'])
+            ->latest()
+            ->get();
+
+        $totalReviews = Review::whereIn('listing_id', $userListingIds)->count();
+        $avgRating = Review::whereIn('listing_id', $userListingIds)->avg('rating') ?? 0;
+
+        $ratingCounts = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $ratingCounts[$i] = Review::whereIn('listing_id', $userListingIds)
+                ->where('rating', $i)
+                ->count();
+        }
+
+        return view('user.reviews', compact(
+            'receivedReviews', 'givenReviews', 'totalReviews', 'avgRating', 'ratingCounts'
+        ));
+    }
+
+    public function replyReview(Request $request, $id)
+    {
+        $request->validate(['reply' => 'required|string|max:1000']);
+
+        $review = Review::findOrFail($id);
+        $listing = Listing::where('id', $review->listing_id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        $review->reply = $request->reply;
+        $review->save();
+
+        return back()->with('success', 'Reply added!');
+    }
+
+    public function deleteReview($id)
+    {
+        $review = Review::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        $review->delete();
+
+        return back()->with('success', 'Review deleted!');
     }
 }

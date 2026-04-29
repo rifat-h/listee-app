@@ -70,6 +70,8 @@ Route::middleware(['auth', 'verified'])->prefix('user')->name('user.')->group(fu
     Route::delete('/bookmarks/{bookmark}', [UserController::class, 'removeBookmark'])->name('bookmarks.remove');
     Route::get('/messages', [UserController::class, 'messages'])->name('messages');
     Route::get('/reviews', [UserController::class, 'reviews'])->name('reviews');
+    Route::post('/reviews/{review}/reply', [UserController::class, 'replyReview'])->name('reviews.reply');
+    Route::delete('/reviews/{review}', [UserController::class, 'deleteReview'])->name('reviews.delete');
 });
 
 // Reviews
