@@ -29,6 +29,10 @@ class AdminController extends Controller
 
     public function updateListingStatus(Request $request, $id)
     {
+        $request->validate([
+            'status' => 'required|in:pending,active,expired,rejected',
+        ]);
+
         $listing = Listing::findOrFail($id);
         $listing->status = $request->status;
         $listing->save();
