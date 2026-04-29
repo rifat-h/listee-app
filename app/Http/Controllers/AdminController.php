@@ -48,11 +48,18 @@ class AdminController extends Controller
 
     public function storeCategory(Request $request)
     {
-        $request->validate(['name' => 'required|string|max:255']);
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name',
+        ]);
+
+        $slug = Str::slug($request->name);
+        if (Category::where('slug', $slug)->exists()) {
+            $slug .= '-' . uniqid();
+        }
 
         Category::create([
             'name'   => $request->name,
-            'slug'   => Str::slug($request->name),
+            'slug'   => $slug,
             'icon'   => $request->icon ?? 'fas fa-tag',
             'description' => $request->description,
             'color'  => $request->color ?? '#FF3B30',
