@@ -81,7 +81,7 @@ class ListingController extends Controller
 
     public function details($slug)
     {
-        $listing = Listing::where('slug', $slug)->with(['user', 'category', 'images'])->firstOrFail();
+        $listing = Listing::where('slug', $slug)->where('status', 'active')->with(['user', 'category', 'images'])->firstOrFail();
         $listing->increment('views');
         $listing->load('reviews.user');
 
