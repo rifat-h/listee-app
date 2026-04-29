@@ -45,9 +45,10 @@ class UserController extends Controller
             $user->avatar = $this->uploadImage($request->file('avatar'), 'avatars', $user->avatar);
         }
 
-        $user->name  = $request->name;
-        $user->phone = $request->phone;
-        $user->about = $request->about;
+        $user->name     = $request->name;
+        $user->phone    = $request->phone;
+        $user->about    = $request->about;
+        $user->location = $request->location;
         $user->save();
 
         return back()->with('success', 'প্রোফাইল আপডেট হয়েছে!');

@@ -21,7 +21,13 @@
                 <!-- Search Bar -->
                 <form action="{{ url('/listings') }}" method="GET" class="mt-4">
                     <div class="row g-2">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                <input type="text" name="keyword" class="form-control" placeholder="Search keyword...">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
                             <select name="category" class="form-select">
                                 <option value="">Choose Category</option>
                                 @foreach($categories as $category)
@@ -29,13 +35,13 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                                 <input type="text" name="location" class="form-control" placeholder="Choose Location">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <button type="submit" class="btn btn-danger w-100">
                                 <i class="fas fa-search"></i> Search
                             </button>
@@ -184,7 +190,7 @@
                                 {{ $blog->title }}
                             </a>
                         </h5>
-                        <p class="text-muted">{{ Str::limit($blog->content, 100) }}</p>
+                        <p class="text-muted">{{ Str::limit(strip_tags($blog->content), 100) }}</p>
                     </div>
                 </div>
             </div>
