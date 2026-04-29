@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
             'phone'     => '01700000000',
             'about'     => 'Listee Admin - Classified Ads Platform',
             'role'      => 'admin',
+            'is_admin'  => true,
             'email_verified_at' => now(),
         ]);
 

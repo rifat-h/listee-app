@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContactMessage;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -24,7 +25,8 @@ class PageController extends Controller
             'message' => 'required|string',
         ]);
 
-        // Mail পাঠাতে চাইলে এখানে Mail::to() ব্যবহার করো
+        ContactMessage::create($request->only(['name', 'email', 'subject', 'message']));
+
         return back()->with('success', 'আপনার মেসেজ পাঠানো হয়েছে! ধন্যবাদ।');
     }
 }

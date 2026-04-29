@@ -19,33 +19,7 @@
         <div class="row">
 
             {{-- Sidebar --}}
-            <div class="col-lg-3 col-md-4">
-                <div class="dashboard-sidebar">
-                    <div class="sidebar-user-info text-center">
-                        <div class="user-avatar">
-                            <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('images/default-avatar.png') }}" 
-                                 alt="{{ auth()->user()->name }}">
-                        </div>
-                        <h5>{{ auth()->user()->name }}</h5>
-                        <p class="text-muted">{{ auth()->user()->email }}</p>
-                    </div>
-                    <ul class="dashboard-nav">
-                        <li><a href="{{ route('user.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                        <li><a href="{{ route('user.profile') }}"><i class="fas fa-user"></i> Profile</a></li>
-                        <li><a href="{{ route('user.my-listings') }}"><i class="fas fa-list"></i> My Listings</a></li>
-                        <li><a href="{{ route('user.bookmarks') }}"><i class="fas fa-heart"></i> Bookmarks</a></li>
-                        <li><a href="{{ route('user.messages') }}"><i class="fas fa-envelope"></i> Messages</a></li>
-                        <li class="active"><a href="{{ route('user.reviews') }}"><i class="fas fa-star"></i> Reviews</a></li>
-                        <li><a href="{{ route('user.add-listing') }}"><i class="fas fa-plus-circle"></i> Add Listing</a></li>
-                        <li>
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="nav-logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            @include('user._sidebar')
 
             {{-- Main Content --}}
             <div class="col-lg-9 col-md-8">
