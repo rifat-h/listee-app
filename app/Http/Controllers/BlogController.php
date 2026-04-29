@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -40,12 +41,13 @@ class BlogController extends Controller
     {
         $request->validate(['body' => 'required|string|max:1000']);
 
-        // Comment model থাকলে uncomment করো:
-        // Comment::create([
-        //     'blog_post_id' => $id,
-        //     'user_id' => auth()->id(),
-        //     'body' => $request->body,
-        // ]);
+        BlogPost::findOrFail($id);
+
+        Comment::create([
+            'blog_post_id' => $id,
+            'user_id' => auth()->id(),
+            'body' => $request->body,
+        ]);
 
         return back()->with('success', 'কমেন্ট পোস্ট হয়েছে!');
     }

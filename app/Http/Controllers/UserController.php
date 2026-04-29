@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bookmark;
 use App\Models\Listing;
 use App\Traits\HasImageUpload;
 use Illuminate\Http\Request;
@@ -68,7 +69,21 @@ class UserController extends Controller
 
     public function toggleBookmark(Listing $listing)
     {
-        return back()->with('success', 'Bookmark updated!');
+        $existing = Bookmark::where('user_id', auth()->id())
+            ->where('listing_id', $listing->id)
+            ->first();
+
+        if ($existing) {
+            $existing->delete();
+            return back()->with('success', 'Bookmark removed!');
+        }
+
+        Bookmark::create([
+            'user_id' => auth()->id(),
+            'listing_id' => $listing->id,
+        ]);
+
+        return back()->with('success', 'Bookmark added!');
     }
 
     public function messages()
