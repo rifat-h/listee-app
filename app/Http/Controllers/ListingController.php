@@ -155,6 +155,10 @@ class ListingController extends Controller
             $validated['image'] = $this->uploadImage($request->file('image'), 'listings', $listing->image);
         }
 
+        if ($listing->title !== $validated['title']) {
+            $validated['slug'] = Str::slug($validated['title']) . '-' . uniqid();
+        }
+
         $listing->update($validated);
 
         return redirect()->route('user.my-listings')->with('success', 'বিজ্ঞাপন আপডেট হয়েছে!');
@@ -164,6 +168,11 @@ class ListingController extends Controller
     {
         $listing = Listing::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
         $this->deleteImage($listing->image);
+        if ($listing->gallery) {
+            foreach ($listing->gallery as $galleryImage) {
+                $this->deleteImage($galleryImage);
+            }
+        }
         $listing->delete();
 
         return redirect()->route('user.my-listings')->with('success', 'বিজ্ঞাপন ডিলিট হয়েছে!');
