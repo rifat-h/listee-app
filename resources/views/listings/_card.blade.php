@@ -11,7 +11,7 @@
     </div>
     <div class="card-body">
         <h6 class="card-title">
-            <a href="{{ route('listings.details', $listing->slug) }}" class="text-dark text-decoration-none">
+            <a href="{{ route('listings.show', $listing->slug) }}" class="text-dark text-decoration-none">
                 {{ Str::limit($listing->title, 40) }}
             </a>
         </h6>
