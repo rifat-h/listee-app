@@ -9,21 +9,27 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('phone')->nullable();
-            $table->string('avatar')->nullable();
-            $table->text('bio')->nullable();
-            $table->string('address')->nullable();
-            $table->string('city')->nullable();
-            $table->string('country')->nullable();
-            $table->enum('role', ['user', 'admin'])->default('user');
-            $table->boolean('is_active')->default(true);
+            $table->string('phone', 20)->nullable()->after('email');
+            $table->text('about')->nullable()->after('phone');
+            $table->string('avatar')->nullable()->after('about');
+            $table->text('bio')->nullable()->after('avatar');
+            $table->string('address')->nullable()->after('bio');
+            $table->string('city')->nullable()->after('address');
+            $table->string('country')->nullable()->after('city');
+            $table->enum('role', ['user', 'admin'])->default('user')->after('country');
+            $table->boolean('is_active')->default(true)->after('role');
+            $table->boolean('is_admin')->default(false)->after('is_active');
         });
     }
 
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['phone', 'avatar', 'bio', 'address', 'city', 'country', 'role', 'is_active']);
+            $table->dropColumn([
+                'phone', 'about', 'avatar', 'bio',
+                'address', 'city', 'country',
+                'role', 'is_active', 'is_admin',
+            ]);
         });
     }
 };
