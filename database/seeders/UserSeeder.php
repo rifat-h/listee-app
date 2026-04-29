@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
             'password'  => Hash::make('password123'),
             'phone'     => '01700000000',
             'about'     => 'Listee Admin - Classified Ads Platform',
-            'is_admin'  => true,
+            'role'      => 'admin',
             'email_verified_at' => now(),
         ]);
 
@@ -62,7 +62,7 @@ class UserSeeder extends Seeder
                 'password'  => Hash::make('password123'),
                 'phone'     => $user['phone'],
                 'about'     => $user['about'],
-                'is_admin'  => false,
+                'role'      => 'user',
                 'email_verified_at' => now(),
             ]);
         }

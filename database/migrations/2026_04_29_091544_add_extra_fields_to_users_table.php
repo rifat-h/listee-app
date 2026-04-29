@@ -19,8 +19,8 @@ return new class extends Migration
             if (!Schema::hasColumn('users', 'avatar')) {
                 $table->string('avatar')->nullable()->after('about');
             }
-            if (!Schema::hasColumn('users', 'is_admin')) {
-                $table->boolean('is_admin')->default(false)->after('avatar');
+            if (!Schema::hasColumn('users', 'role')) {
+                $table->enum('role', ['user', 'admin'])->default('user')->after('avatar');
             }
         });
     }
@@ -28,7 +28,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $columns = ['about', 'avatar', 'is_admin'];
+            $columns = ['about', 'avatar', 'role'];
             foreach ($columns as $col) {
                 if (Schema::hasColumn('users', $col)) {
                     $table->dropColumn($col);
