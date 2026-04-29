@@ -68,8 +68,7 @@
                 <a href="{{ url('/listings?category=' . $category->id) }}" class="text-decoration-none">
                     <div class="card text-center p-3 h-100 border-0 shadow-sm category-card">
                         <div class="card-body">
-                            <img src="{{ $category->icon ? asset('storage/' . $category->icon) : asset('images/default-category.png') }}"
-                                 alt="{{ $category->name }}" class="mb-3" width="60" height="60">
+                            <i class="{{ $category->icon ?? 'fas fa-folder' }}" style="font-size: 2.5rem; color: {{ $category->color ?? '#dc3545' }}"></i>
                             <h6 class="card-title text-dark">{{ $category->name }}</h6>
                             <small class="text-muted">{{ $category->listings_count ?? 0 }} Ads</small>
                         </div>
