@@ -3,77 +3,46 @@
 @section('title', 'Manage Categories - Admin')
 
 @section('content')
-
-@include('components.breadcrumb', [
-    'title' => 'Manage Categories',
-    'breadcrumbs' => [
-        ['name' => 'Home', 'url' => url('/')],
-        ['name' => 'Admin', 'url' => route('admin.dashboard')],
-        ['name' => 'Categories']
-    ]
-])
-
-<section class="admin-section py-5">
+<section class="py-5">
     <div class="container">
-        <div class="row">
+        <h2 class="fw-bold mb-4"><i class="fas fa-th-large text-danger"></i> Manage Categories</h2>
 
-            {{-- Sidebar --}}
-            <div class="col-lg-3 col-md-4">
-                @include('admin._sidebar')
-            </div>
-
-            {{-- Main Content --}}
-            <div class="col-lg-9 col-md-8">
-
-                @if(session('success'))
-                    <div class="alert alert-success alert-dismissible fade show">
-                        {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    </div>
-                @endif
-
-                {{-- Add Category Form --}}
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-white">
-                        <h5 class="fw-bold mb-0">Add New Category</h5>
-                    </div>
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm">
                     <div class="card-body">
+                        <h5 class="fw-bold mb-3">Add Category</h5>
                         <form action="{{ route('admin.categories.store') }}" method="POST">
                             @csrf
-                            <div class="row g-3">
-                                <div class="col-md-4">
-                                    <input type="text" name="name" class="form-control" placeholder="Category Name" required>
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="text" name="icon" class="form-control" placeholder="Icon (e.g. fas fa-car)">
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="color" name="color" class="form-control form-control-color" value="#FF3B30">
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="submit" class="btn btn-danger w-100">
-                                        <i class="fas fa-plus"></i> Add Category
-                                    </button>
-                                </div>
+                            <div class="mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" name="name" class="form-control" required>
                             </div>
-                            <div class="mt-2">
-                                <input type="text" name="description" class="form-control" placeholder="Description (optional)">
+                            <div class="mb-3">
+                                <label class="form-label">Icon (FontAwesome class)</label>
+                                <input type="text" name="icon" class="form-control" placeholder="fas fa-tag">
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label">Color</label>
+                                <input type="color" name="color" class="form-control form-control-color" value="#FF3B30">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <textarea name="description" class="form-control" rows="2"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-danger w-100">Add Category</button>
                         </form>
                     </div>
                 </div>
+            </div>
 
-                {{-- Categories Table --}}
+            <div class="col-lg-8">
                 <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-white">
-                        <h5 class="fw-bold mb-0">All Categories ({{ $categories->count() }})</h5>
-                    </div>
-                    <div class="card-body p-0">
+                    <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead class="table-light">
+                            <table class="table table-hover">
+                                <thead>
                                     <tr>
-                                        <th>#</th>
                                         <th>Icon</th>
                                         <th>Name</th>
                                         <th>Listings</th>
@@ -84,23 +53,19 @@
                                 <tbody>
                                     @forelse($categories as $category)
                                     <tr>
-                                        <td>{{ $category->id }}</td>
-                                        <td><i class="{{ $category->icon ?? 'fas fa-tag' }}" style="color: {{ $category->color ?? '#FF3B30' }}"></i></td>
+                                        <td><i class="{{ $category->icon }}" style="color: {{ $category->color }}"></i></td>
                                         <td>{{ $category->name }}</td>
-                                        <td><span class="badge bg-info">{{ $category->listings_count }}</span></td>
+                                        <td>{{ $category->listings_count }}</td>
                                         <td>
-                                            @if($category->is_active)
-                                                <span class="badge bg-success">Active</span>
-                                            @else
-                                                <span class="badge bg-secondary">Inactive</span>
-                                            @endif
+                                            <span class="badge bg-{{ $category->is_active ? 'success' : 'secondary' }}">
+                                                {{ $category->is_active ? 'Active' : 'Inactive' }}
+                                            </span>
                                         </td>
                                         <td>
-                                            <form action="{{ route('admin.categories.delete', $category->id) }}" method="POST"
-                                                  class="d-inline" onsubmit="return confirm('Are you sure?')">
+                                            <form action="{{ route('admin.categories.delete', $category->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </form>
@@ -108,7 +73,7 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="6" class="text-center py-4 text-muted">No categories found.</td>
+                                        <td colspan="5" class="text-center text-muted py-4">No categories found</td>
                                     </tr>
                                     @endforelse
                                 </tbody>
@@ -117,9 +82,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
-
 @endsection

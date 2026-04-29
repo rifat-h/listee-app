@@ -10,7 +10,7 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user() && auth()->user()->role === 'admin') {
+        if (auth()->user() && (auth()->user()->is_admin || auth()->user()->role === 'admin')) {
             return $next($request);
         }
         abort(403, 'Unauthorized');

@@ -3,95 +3,67 @@
 @section('title', 'Admin Dashboard - Listee')
 
 @section('content')
-
-@include('components.breadcrumb', [
-    'title' => 'Admin Dashboard',
-    'breadcrumbs' => [
-        ['name' => 'Home', 'url' => url('/')],
-        ['name' => 'Admin Dashboard']
-    ]
-])
-
-<section class="admin-section py-5">
+<section class="py-5">
     <div class="container">
-        <div class="row">
+        <h2 class="fw-bold mb-4"><i class="fas fa-tachometer-alt text-danger"></i> Admin Dashboard</h2>
 
-            {{-- Sidebar --}}
-            <div class="col-lg-3 col-md-4">
-                @include('admin._sidebar')
+        <div class="row g-4 mb-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="card border-0 shadow-sm text-center p-4">
+                    <i class="fas fa-users fa-2x text-primary mb-2"></i>
+                    <h3 class="fw-bold">{{ $totalUsers }}</h3>
+                    <p class="text-muted mb-0">Total Users</p>
+                </div>
             </div>
-
-            {{-- Main Content --}}
-            <div class="col-lg-9 col-md-8">
-                <div class="dashboard-welcome mb-4">
-                    <h3 class="fw-bold">Admin Dashboard</h3>
-                    <p class="text-muted">Overview of your platform's performance.</p>
+            <div class="col-lg-3 col-md-6">
+                <div class="card border-0 shadow-sm text-center p-4">
+                    <i class="fas fa-list fa-2x text-success mb-2"></i>
+                    <h3 class="fw-bold">{{ $totalListings }}</h3>
+                    <p class="text-muted mb-0">Total Listings</p>
                 </div>
-
-                {{-- Stats Cards --}}
-                <div class="row mb-4">
-                    <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
-                        <div class="card border-0 shadow-sm text-center p-3">
-                            <div class="card-body">
-                                <i class="fas fa-users fa-2x text-primary mb-2"></i>
-                                <h3 class="fw-bold">{{ $totalUsers }}</h3>
-                                <p class="text-muted mb-0">Total Users</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
-                        <div class="card border-0 shadow-sm text-center p-3">
-                            <div class="card-body">
-                                <i class="fas fa-list-alt fa-2x text-success mb-2"></i>
-                                <h3 class="fw-bold">{{ $totalListings }}</h3>
-                                <p class="text-muted mb-0">Total Listings</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
-                        <div class="card border-0 shadow-sm text-center p-3">
-                            <div class="card-body">
-                                <i class="fas fa-th-large fa-2x text-info mb-2"></i>
-                                <h3 class="fw-bold">{{ $totalCategories }}</h3>
-                                <p class="text-muted mb-0">Categories</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
-                        <div class="card border-0 shadow-sm text-center p-3">
-                            <div class="card-body">
-                                <i class="fas fa-clock fa-2x text-warning mb-2"></i>
-                                <h3 class="fw-bold">{{ $pendingListings }}</h3>
-                                <p class="text-muted mb-0">Pending Listings</p>
-                            </div>
-                        </div>
-                    </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card border-0 shadow-sm text-center p-4">
+                    <i class="fas fa-th-large fa-2x text-warning mb-2"></i>
+                    <h3 class="fw-bold">{{ $totalCategories }}</h3>
+                    <p class="text-muted mb-0">Categories</p>
                 </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card border-0 shadow-sm text-center p-4">
+                    <i class="fas fa-clock fa-2x text-danger mb-2"></i>
+                    <h3 class="fw-bold">{{ $pendingListings }}</h3>
+                    <p class="text-muted mb-0">Pending Listings</p>
+                </div>
+            </div>
+        </div>
 
-                {{-- Quick Actions --}}
+        <div class="row g-4">
+            <div class="col-md-6">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body">
-                        <h5 class="fw-bold mb-3">Quick Actions</h5>
-                        <div class="d-flex flex-wrap gap-2">
-                            <a href="{{ route('admin.listings') }}" class="btn btn-outline-primary">
-                                <i class="fas fa-list"></i> Manage Listings
+                        <h5 class="fw-bold">Quick Links</h5>
+                        <div class="list-group list-group-flush">
+                            <a href="{{ route('admin.listings') }}" class="list-group-item list-group-item-action">
+                                <i class="fas fa-list me-2"></i> Manage Listings
                             </a>
-                            <a href="{{ route('admin.categories') }}" class="btn btn-outline-success">
-                                <i class="fas fa-th-large"></i> Manage Categories
+                            <a href="{{ route('admin.categories') }}" class="list-group-item list-group-item-action">
+                                <i class="fas fa-th-large me-2"></i> Manage Categories
                             </a>
-                            <a href="{{ route('admin.users') }}" class="btn btn-outline-info">
-                                <i class="fas fa-users"></i> Manage Users
+                            <a href="{{ route('admin.users') }}" class="list-group-item list-group-item-action">
+                                <i class="fas fa-users me-2"></i> Manage Users
                             </a>
-                            <a href="{{ route('admin.blog.create') }}" class="btn btn-outline-danger">
-                                <i class="fas fa-plus"></i> New Blog Post
+                            <a href="{{ route('admin.blog') }}" class="list-group-item list-group-item-action">
+                                <i class="fas fa-blog me-2"></i> Manage Blog
+                            </a>
+                            <a href="{{ route('admin.settings') }}" class="list-group-item list-group-item-action">
+                                <i class="fas fa-cog me-2"></i> Settings
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
-
 @endsection

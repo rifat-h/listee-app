@@ -27,11 +27,10 @@
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-body">
                         <div class="main-image mb-3">
-                            <img src="{{ $listing->image ? asset('storage/' . $listing->image) : asset('images/default-listing.png') }}"
+                            <img src="{{ $listing->images->count() > 0 ? asset('storage/' . $listing->images->first()->image_path) : asset('images/default-listing.png') }}"
                                  class="img-fluid rounded w-100" id="mainImage"
                                  style="height: 400px; object-fit: cover;" alt="{{ $listing->title }}">
                         </div>
-                        @if($listing->images && $listing->images->count() > 0)
                         <div class="d-flex gap-2 overflow-auto">
                             @foreach($listing->images as $image)
                             <img src="{{ asset('storage/' . $image->image_path) }}"
@@ -40,7 +39,6 @@
                                  onclick="document.getElementById('mainImage').src=this.src; document.querySelectorAll('.thumbnail-img').forEach(i=>i.style.borderColor='transparent'); this.style.borderColor='#dc3545';">
                             @endforeach
                         </div>
-                        @endif
                     </div>
                 </div>
 
@@ -54,15 +52,23 @@
                                     <span><i class="fas fa-tag text-danger"></i> {{ $listing->category->name ?? 'N/A' }}</span>
                                     <span><i class="fas fa-map-marker-alt"></i> {{ $listing->location }}</span>
                                     <span><i class="fas fa-calendar"></i> {{ $listing->created_at->format('d M, Y') }}</span>
-                                    <span><i class="fas fa-eye"></i> {{ $listing->views ?? 0 }} views</span>
+                                    <span><i class="fas fa-eye"></i> {{ $listing->views_count ?? 0 }} views</span>
                                 </div>
                             </div>
                             <div class="text-end">
                                 <h3 class="text-danger fw-bold">${{ number_format($listing->price) }}</h3>
+                                @if($listing->original_price)
+                                    <small class="text-muted text-decoration-line-through">
+                                        ${{ number_format($listing->original_price) }}
+                                    </small>
+                                @endif
                             </div>
                         </div>
                         @if($listing->is_featured)
                             <span class="badge bg-success">Featured</span>
+                        @endif
+                        @if($listing->condition)
+                            <span class="badge bg-info">{{ ucfirst($listing->condition) }}</span>
                         @endif
                     </div>
                 </div>
@@ -76,6 +82,24 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Features -->
+                @if($listing->features)
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <h4 class="fw-bold mb-3">Features</h4>
+                        <div class="row">
+                            @foreach(is_array($listing->features) ? $listing->features : explode("\n", $listing->features) as $feature)
+                                @if(trim($feature))
+                                <div class="col-md-6 mb-2">
+                                    <i class="fas fa-check-circle text-success me-2"></i> {{ trim($feature) }}
+                                </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                @endif
 
                 <!-- Reviews Section -->
                 <div class="card border-0 shadow-sm mb-4">
@@ -118,13 +142,13 @@
                             <div class="mb-3">
                                 <label class="form-label">Comment</label>
                                 <textarea name="comment" class="form-control" rows="4"
-                                          placeholder="Write your review..." required></textarea>
+                                          placeholder="আপনার মতামত লিখুন..." required></textarea>
                             </div>
                             <button type="submit" class="btn btn-danger">Submit Review</button>
                         </form>
                         @else
                         <p class="text-muted mt-3">
-                            Please <a href="{{ url('/login') }}" class="text-danger">Login</a> to write a review.
+                            রিভিউ দিতে <a href="{{ url('/login') }}" class="text-danger">Login</a> করুন।
                         </p>
                         @endauth
                     </div>
@@ -171,7 +195,7 @@
                             </div>
                             <div class="mb-3">
                                 <textarea name="message" class="form-control" rows="4"
-                                          placeholder="Write your message..." required></textarea>
+                                          placeholder="আপনার মেসেজ লিখুন..." required></textarea>
                             </div>
                             <button type="submit" class="btn btn-danger w-100">
                                 <i class="fas fa-paper-plane"></i> Send Message
