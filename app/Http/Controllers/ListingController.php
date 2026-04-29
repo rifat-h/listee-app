@@ -62,6 +62,7 @@ class ListingController extends Controller
     {
         $listing = Listing::where('slug', $slug)->with(['user', 'category'])->firstOrFail();
         $listing->increment('views');
+        $listing->load('reviews.user');
 
         $relatedListings = Listing::where('category_id', $listing->category_id)
                             ->where('id', '!=', $listing->id)
