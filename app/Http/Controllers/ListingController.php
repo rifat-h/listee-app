@@ -68,7 +68,7 @@ class ListingController extends Controller
                             ->where('status', 'active')
                             ->take(4)->get();
 
-        return view('listings.details', compact('listing', 'relatedListings'));
+        return view('listings.show', compact('listing', 'relatedListings'));
     }
 
     public function store(Request $request)
