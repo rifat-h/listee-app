@@ -86,6 +86,17 @@ class UserController extends Controller
         return back()->with('success', 'Bookmark added!');
     }
 
+    public function removeBookmark(Bookmark $bookmark)
+    {
+        if ($bookmark->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $bookmark->delete();
+
+        return back()->with('success', 'Bookmark সরানো হয়েছে!');
+    }
+
     public function messages()
     {
         return view('user.messages');
