@@ -11,7 +11,7 @@ class BlogSeeder extends Seeder
 {
     public function run(): void
     {
-        $admin = User::where('is_admin', true)->first();
+        $admin = User::where('role', 'admin')->first();
 
         $posts = [
             [
