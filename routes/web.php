@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\NewsletterController;
 
 // ========================
 // Public Routes
@@ -75,6 +76,9 @@ Route::post('/reviews/{listing}', [ReviewController::class, 'store'])->name('rev
 
 // Messages
 Route::post('/messages', [MessageController::class, 'store'])->name('messages.store')->middleware('auth');
+
+// Newsletter
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
 // Breeze Profile Routes
 Route::middleware('auth')->group(function () {
