@@ -67,6 +67,7 @@ Route::middleware(['auth', 'verified'])->prefix('user')->name('user.')->group(fu
     Route::delete('/delete-listing/{id}', [ListingController::class, 'destroy'])->name('delete-listing');
     Route::get('/bookmarks', [UserController::class, 'bookmarks'])->name('bookmarks');
     Route::post('/bookmark/{listing}', [UserController::class, 'toggleBookmark'])->name('toggle-bookmark');
+    Route::delete('/bookmarks/{bookmark}', [UserController::class, 'removeBookmark'])->name('bookmarks.remove');
     Route::get('/messages', [UserController::class, 'messages'])->name('messages');
     Route::get('/reviews', [UserController::class, 'reviews'])->name('reviews');
 });
