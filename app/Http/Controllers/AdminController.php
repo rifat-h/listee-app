@@ -50,9 +50,16 @@ class AdminController extends Controller
     {
         $request->validate(['name' => 'required|string|max:255']);
 
+        $slug = Str::slug($request->name);
+        $originalSlug = $slug;
+        $counter = 1;
+        while (Category::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $counter++;
+        }
+
         Category::create([
             'name'   => $request->name,
-            'slug'   => Str::slug($request->name),
+            'slug'   => $slug,
             'icon'   => $request->icon ?? 'fas fa-tag',
             'description' => $request->description,
             'color'  => $request->color ?? '#FF3B30',
@@ -65,13 +72,32 @@ class AdminController extends Controller
     public function updateCategory(Request $request, $id)
     {
         $category = Category::findOrFail($id);
-        $category->update($request->only(['name', 'icon', 'description', 'color', 'is_active']));
+
+        $data = $request->only(['name', 'icon', 'description', 'color', 'is_active']);
+
+        if (isset($data['name']) && $data['name'] !== $category->name) {
+            $slug = Str::slug($data['name']);
+            $originalSlug = $slug;
+            $counter = 1;
+            while (Category::where('slug', $slug)->where('id', '!=', $category->id)->exists()) {
+                $slug = $originalSlug . '-' . $counter++;
+            }
+            $data['slug'] = $slug;
+        }
+
+        $category->update($data);
         return back()->with('success', 'Category updated!');
     }
 
     public function deleteCategory($id)
     {
-        Category::findOrFail($id)->delete();
+        $category = Category::findOrFail($id);
+
+        if ($category->listings()->count() > 0) {
+            return back()->with('error', 'Cannot delete category: ' . $category->listings()->count() . ' listing(s) exist under this category. Please reassign or delete them first.');
+        }
+
+        $category->delete();
         return back()->with('success', 'Category deleted!');
     }
 
