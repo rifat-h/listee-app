@@ -22,7 +22,7 @@
             @include('user._sidebar')
 
             {{-- Main Content --}}
-            <div class="col-lg-9 col-md-8">
+            <div class="col-12">
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show">
                         <i class="fas fa-check-circle me-2"></i>{{ session('success') }}

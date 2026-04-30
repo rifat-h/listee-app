@@ -22,7 +22,7 @@
             @include('user._sidebar')
 
             {{-- Main Content --}}
-            <div class="col-lg-9 col-md-8">
+            <div class="col-12">
                 <div class="messages-container">
                     <div class="row g-0">
 
