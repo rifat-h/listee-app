@@ -35,16 +35,6 @@
                         </ul>
                     </li>
 
-                    <!-- Categories Dropdown -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            Categories
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ url('/categories') }}">All Categories</a></li>
-                        </ul>
-                    </li>
-
                     <!-- Pages Dropdown -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
@@ -59,10 +49,26 @@
                         </ul>
                     </li>
 
-                    <!-- Blog -->
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->is('blog*') ? 'active text-danger' : '' }}"
-                           href="{{ url('/blog') }}">Blog</a>
+                    <!-- Our Pages Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            Our Pages
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url('/gallery') }}">Gallery</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/how-it-works') }}">How It Works</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/categories') }}">All Categories</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Blog Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            Blog
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url('/blog') }}">All Posts</a></li>
+                        </ul>
                     </li>
 
                     <!-- Contact -->
@@ -96,7 +102,7 @@
                             </ul>
                         </div>
                     @endguest
-                    <a href="{{ url('/user/listings/create') }}" class="btn btn-danger btn-sm">
+                    <a href="{{ url('/user/add-listing') }}" class="btn btn-danger btn-sm">
                         <i class="fas fa-plus"></i> Add Listing
                     </a>
                 </div>

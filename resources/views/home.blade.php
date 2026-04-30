@@ -110,28 +110,7 @@
     </div>
 </section>
 
-{{-- SECTION 4: Latest Ads --}}
-<section class="latest-ads-section py-5">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h2 class="fw-bold">Lat<span class="badge bg-danger">est</span> Ads</h2>
-                <p class="text-muted">Checkout these latest cool ads from our members</p>
-            </div>
-            <a href="{{ url('/listings') }}" class="btn btn-outline-danger">View All</a>
-        </div>
-
-        <div class="row g-4">
-            @foreach($latestAds as $ad)
-            <div class="col-lg-3 col-md-6">
-                @include('listings._card', ['listing' => $ad])
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
-{{-- SECTION 5: Popular Locations --}}
+{{-- SECTION 4: Popular Locations --}}
 <section class="popular-locations py-5 bg-danger text-white">
     <div class="container text-center">
         <h2 class="fw-bold">Popular <span class="badge bg-white text-danger">Lo</span>cations</h2>
@@ -156,10 +135,221 @@
             </div>
             @endforeach
         </div>
+
+        <div class="mt-4">
+            <a href="{{ url('/listings') }}" class="btn btn-outline-light">Browse All</a>
+        </div>
     </div>
 </section>
 
-{{-- SECTION 6: Latest Blog --}}
+{{-- SECTION 5: Latest Ads --}}
+<section class="latest-ads-section py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold">Lat<span class="badge bg-danger">est</span> Ads</h2>
+                <p class="text-muted">Checkout these latest cool ads from our members</p>
+            </div>
+            <a href="{{ url('/listings') }}" class="btn btn-outline-danger">View All</a>
+        </div>
+
+        <div class="row g-4">
+            @foreach($latestAds as $ad)
+            <div class="col-lg-3 col-md-6">
+                @include('listings._card', ['listing' => $ad])
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+{{-- SECTION 6: Earn Cash by Selling --}}
+<section class="earn-cash-section py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="fw-bold">
+                    Earn Cash by Selling<br>
+                    <span class="text-danger">or Find Anything you desire</span>
+                </h2>
+                <p class="text-muted mt-3">
+                    There are many wonderful of passages of Lorem Ipsum available, but the majority have
+                    been altered in some of form injected humour, or Lorem Ipsum.
+                </p>
+                <div class="d-flex gap-3 mt-4">
+                    <a href="{{ url('/user/add-listing') }}" class="btn btn-danger">Post Your Ad</a>
+                    <a href="{{ url('/listings') }}" class="btn btn-outline-danger">Browse Ads</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="{{ asset('images/earn-cash.png') }}" alt="Earn Cash by Selling" class="img-fluid" style="max-height: 350px;">
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- SECTION 7: Client Testimonials --}}
+<section class="testimonials-section py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Client <span class="badge bg-danger">Test</span>imonials</h2>
+        </div>
+
+        <div class="row justify-content-center g-4">
+            <div class="col-lg-5 col-md-6">
+                <div class="card border-0 shadow-sm p-4 h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="{{ asset('images/default-avatar.png') }}" class="rounded-circle me-3" width="50" height="50" alt="Dev">
+                        <div>
+                            <h6 class="fw-bold mb-0">Dev</h6>
+                            <small class="text-muted">Lead Frontend Developer</small>
+                        </div>
+                    </div>
+                    <div class="text-warning mb-2">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="text-muted">
+                        Saepe noster intellegat aha has tales alias periculis at India.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at
+                        magna et nunc dapibus consequat sit amet a felis.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-6">
+                <div class="card border-0 shadow-sm p-4 h-100 bg-danger text-white">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="{{ asset('images/default-avatar.png') }}" class="rounded-circle me-3" width="50" height="50" alt="Esther Hills">
+                        <div>
+                            <h6 class="fw-bold mb-0">Esther Hills</h6>
+                            <small>Lead Frontend Developer</small>
+                        </div>
+                    </div>
+                    <div class="text-warning mb-2">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p>
+                        Vollem meum intellegat delicata has tales alias periculis at India.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at
+                        magna et nunc dapibus consequat sit amet a felis.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- SECTION 8: Sponsors --}}
+<section class="sponsors-section py-5 bg-light">
+    <div class="container text-center">
+        <h4 class="fw-bold mb-4">Over 5,26,000+ Sponsors being contact with us</h4>
+        <div class="d-flex justify-content-center align-items-center flex-wrap gap-4">
+            <span class="text-muted fs-5 fw-bold"><i class="fas fa-paint-brush me-1"></i> graphicriver</span>
+            <span class="text-muted fs-5 fw-bold"><i class="fas fa-bullseye me-1"></i> videohive</span>
+            <span class="text-muted fs-5 fw-bold"><i class="fas fa-music me-1"></i> audiojungle</span>
+            <span class="text-muted fs-5 fw-bold"><i class="fas fa-camera me-1"></i> photodune</span>
+            <span class="text-muted fs-5 fw-bold"><i class="fas fa-code me-1"></i> codecanyon</span>
+            <span class="text-muted fs-5 fw-bold"><i class="fas fa-gem me-1"></i> themeforest</span>
+        </div>
+    </div>
+</section>
+
+{{-- SECTION 9: Our Pricing Plan --}}
+<section class="pricing-plan-section py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Our Pricing <span class="badge bg-danger">Pl</span>an</h2>
+            <p class="text-muted">select a plan giving which gives the best for in build features</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            {{-- Basic Plan --}}
+            <div class="col-lg-3 col-md-6">
+                <div class="card border-0 shadow-sm text-center p-4 h-100">
+                    <div class="card-body">
+                        <span class="badge bg-light text-dark mb-2">Basic</span>
+                        <h2 class="fw-bold text-danger">$10<small class="text-muted fs-6">/month</small></h2>
+                        <p class="text-muted small">For small business that want to customize website</p>
+                        <hr>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="fas fa-check-circle text-danger me-2"></i> Basic listing submission</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-danger me-2"></i> 24-hour Availability</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-danger me-2"></i> Email support</li>
+                            <li class="mb-2"><i class="fas fa-times-circle text-muted me-2"></i> Limited support</li>
+                        </ul>
+                        <a href="{{ url('/pricing') }}" class="btn btn-outline-danger w-100 mt-3">View details</a>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Standard Plan --}}
+            <div class="col-lg-3 col-md-6">
+                <div class="card border-0 shadow-sm text-center p-4 h-100">
+                    <div class="card-body">
+                        <span class="badge bg-light text-dark mb-2">Standard</span>
+                        <h2 class="fw-bold text-danger">$25<small class="text-muted fs-6">/month</small></h2>
+                        <p class="text-muted small">For small business that want to customize website</p>
+                        <hr>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="fas fa-check-circle text-danger me-2"></i> Basic listing submission</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-danger me-2"></i> 24-hour Availability</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-danger me-2"></i> Email support</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-danger me-2"></i> Limited support</li>
+                        </ul>
+                        <a href="{{ url('/pricing') }}" class="btn btn-outline-danger w-100 mt-3">View details</a>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Popular Plan --}}
+            <div class="col-lg-3 col-md-6">
+                <div class="card border-0 shadow text-center p-4 h-100 border-danger" style="border: 2px solid #dc3545 !important;">
+                    <div class="card-body">
+                        <span class="badge bg-danger mb-2">Popular</span>
+                        <h2 class="fw-bold text-danger">$50<small class="text-muted fs-6">/month</small></h2>
+                        <p class="text-muted small">For small business that want to customize website</p>
+                        <hr>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="fas fa-check-circle text-danger me-2"></i> Basic listing submission</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-danger me-2"></i> 24-hour Availability</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-danger me-2"></i> Priority support</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-danger me-2"></i> Limited support</li>
+                        </ul>
+                        <a href="{{ url('/pricing') }}" class="btn btn-outline-danger w-100 mt-3">View details</a>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Enterprise Plan --}}
+            <div class="col-lg-3 col-md-6">
+                <div class="card border-0 shadow-sm text-center p-4 h-100">
+                    <div class="card-body">
+                        <span class="badge bg-light text-dark mb-2">Enterprise</span>
+                        <h2 class="fw-bold text-danger">$100<small class="text-muted fs-6">/month</small></h2>
+                        <p class="text-muted small">For small business that want to customize website</p>
+                        <hr>
+                        <ul class="list-unstyled text-start">
+                            <li class="mb-2"><i class="fas fa-check-circle text-danger me-2"></i> Basic listing submission</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-danger me-2"></i> 24-hour Availability</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-danger me-2"></i> Priority support</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-danger me-2"></i> Limited support</li>
+                        </ul>
+                        <a href="{{ url('/pricing') }}" class="btn btn-danger w-100 mt-3">View details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- SECTION 10: Latest Blog --}}
 <section class="latest-blog py-5">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
