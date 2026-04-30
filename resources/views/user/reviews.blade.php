@@ -22,7 +22,7 @@
             @include('user._sidebar')
 
             {{-- Main Content --}}
-            <div class="col-lg-9 col-md-8">
+            <div class="col-12">
                 {{-- Reviews Summary --}}
                 <div class="dashboard-card mb-4">
                     <div class="reviews-summary">

@@ -22,7 +22,7 @@
             @include('user._sidebar')
 
             {{-- Main Content --}}
-            <div class="col-lg-9 col-md-8">
+            <div class="col-12">
                 <div class="dashboard-card">
                     <div class="card-header-custom">
                         <h5><i class="fas fa-heart me-2"></i>My Bookmarks</h5>
