@@ -9,318 +9,204 @@
     'title' => 'Contact Us',
     'breadcrumbs' => [
         ['name' => 'Home', 'url' => url('/')],
-        ['name' => 'Contact Us']
+        ['name' => 'Contact us']
     ]
 ])
 
-<section class="contact-section py-5">
+{{-- Map & Info Section --}}
+<section class="contact-map-section py-5">
     <div class="container">
-        <div class="row">
-
-            {{-- Contact Info Cards --}}
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="contact-info-card text-center">
-                    <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
+        <div class="row g-0 contact-map-row">
+            {{-- Left: Photo with Hours & Contact overlay --}}
+            <div class="col-lg-6">
+                <div class="contact-photo-wrapper">
+                    <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&q=80"
+                         alt="Contact" class="contact-photo">
+                    <div class="contact-overlay-card">
+                        <h5>Hours</h5>
+                        <p>Tuesday - Saturday : 9am - 5pm</p>
+                        <p>Monday: 10:30am - 3pm Closed on Sunday</p>
+                        <h5 class="mt-3">Contact Us</h5>
+                        <p>132, My Street, Kingston, New York 12401</p>
+                        <p>Tel : +088 01562 1452</p>
+                        <p>Email : support@listee.com</p>
                     </div>
-                    <h5>Our Address</h5>
-                    <p>123 Main Street, Gulshan<br>Dhaka 1212, Bangladesh</p>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="contact-info-card text-center">
-                    <div class="contact-icon">
-                        <i class="fas fa-phone-alt"></i>
-                    </div>
-                    <h5>Call Us</h5>
-                    <p>
-                        <a href="tel:+8801XXXXXXXXX">+880 1XXX-XXXXXX</a><br>
-                        <a href="tel:+8801XXXXXXXXX">+880 1XXX-XXXXXX</a>
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="contact-info-card text-center">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <h5>Email Us</h5>
-                    <p>
-                        <a href="mailto:info@listee.com">info@listee.com</a><br>
-                        <a href="mailto:support@listee.com">support@listee.com</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-4">
-            {{-- Contact Form --}}
-            <div class="col-lg-7">
-                <div class="contact-form-card">
-                    <h4><i class="fas fa-paper-plane me-2"></i>Send Us a Message</h4>
-                    <p class="text-muted mb-4">Fill out the form below and we'll get back to you as soon as possible.</p>
-
-                    @if(session('success'))
-                        <div class="alert alert-success alert-dismissible fade show">
-                            <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    @endif
-
-                    @if($errors->any())
-                        <div class="alert alert-danger alert-dismissible fade show">
-                            @foreach($errors->all() as $error)
-                                <p class="mb-0">{{ $error }}</p>
-                            @endforeach
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    @endif
-
-                    <form action="{{ route('contact.send') }}" method="POST">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Full Name <span class="text-danger">*</span></label>
-                                <input type="text" name="name" class="form-control" 
-                                       value="{{ old('name', auth()->user()->name ?? '') }}" 
-                                       placeholder="Your full name" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Email Address <span class="text-danger">*</span></label>
-                                <input type="email" name="email" class="form-control" 
-                                       value="{{ old('email', auth()->user()->email ?? '') }}" 
-                                       placeholder="your@email.com" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Phone Number</label>
-                                <input type="text" name="phone" class="form-control" 
-                                       value="{{ old('phone') }}" placeholder="+880 1XXXXXXXXX">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Subject <span class="text-danger">*</span></label>
-                                <select name="subject" class="form-control" required>
-                                    <option value="">Select Subject</option>
-                                    <option value="general" {{ old('subject') == 'general' ? 'selected' : '' }}>General Inquiry</option>
-                                    <option value="support" {{ old('subject') == 'support' ? 'selected' : '' }}>Technical Support</option>
-                                    <option value="billing" {{ old('subject') == 'billing' ? 'selected' : '' }}>Billing Issue</option>
-                                    <option value="report" {{ old('subject') == 'report' ? 'selected' : '' }}>Report a Listing</option>
-                                    <option value="partnership" {{ old('subject') == 'partnership' ? 'selected' : '' }}>Partnership</option>
-                                    <option value="other" {{ old('subject') == 'other' ? 'selected' : '' }}>Other</option>
-                                </select>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <label class="form-label">Message <span class="text-danger">*</span></label>
-                                <textarea name="message" class="form-control" rows="5" 
-                                          placeholder="Write your message here..." required>{{ old('message') }}</textarea>
-                            </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-contact">
-                                    <i class="fas fa-paper-plane me-1"></i> Send Message
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            {{-- Map & Working Hours --}}
-            <div class="col-lg-5">
-                {{-- Map --}}
-                <div class="contact-map-card mb-4">
-                    <div id="contactMap" class="contact-map"></div>
-                </div>
-
-                {{-- Working Hours --}}
-                <div class="working-hours-card">
-                    <h5><i class="far fa-clock me-2"></i>Working Hours</h5>
-                    <ul class="hours-list">
-                        <li>
-                            <span>Saturday - Thursday</span>
-                            <span>9:00 AM - 6:00 PM</span>
-                        </li>
-                        <li>
-                            <span>Friday</span>
-                            <span class="text-danger">Closed</span>
-                        </li>
-                    </ul>
-
-                    <h5 class="mt-4"><i class="fas fa-share-alt me-2"></i>Follow Us</h5>
-                    <div class="contact-social">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                    </div>
+            {{-- Right: Google Map --}}
+            <div class="col-lg-6">
+                <div class="contact-map-wrapper">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2964.123456!2d-74.0059!3d41.9270!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89dd0e30c2b6c72f%3A0x5b77e56e8c3e8e1a!2s132%20Kingston%20St%2C%20Kingston%2C%20NY%2012401!5e0!3m2!1sen!2sus!4v1700000000000"
+                        width="100%" height="100%" style="border:0;" allowfullscreen=""
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+{{-- Contact Form Section --}}
+<section class="contact-form-section py-5">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="contact-heading">Contact Us</h2>
+            <p class="text-muted">We are here to help you</p>
+        </div>
+        <div class="row align-items-center">
+            {{-- Left: Illustration --}}
+            <div class="col-lg-5 mb-4 mb-lg-0 text-center">
+                <img src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png"
+                     alt="Contact Us" class="contact-illustration">
+            </div>
+            {{-- Right: Form --}}
+            <div class="col-lg-7">
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show">
+                        <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                @endif
+
+                @if($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        @foreach($errors->all() as $error)
+                            <p class="mb-0">{{ $error }}</p>
+                        @endforeach
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                @endif
+
+                <form action="{{ route('contact.submit') }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <input type="text" name="name" class="form-control contact-input"
+                               value="{{ old('name', auth()->user()->name ?? '') }}"
+                               placeholder="Name*" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" name="email" class="form-control contact-input"
+                               value="{{ old('email', auth()->user()->email ?? '') }}"
+                               placeholder="Email*" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="subject" class="form-control contact-input"
+                               value="{{ old('subject') }}"
+                               placeholder="Subject">
+                    </div>
+                    <div class="mb-3">
+                        <textarea name="message" class="form-control contact-input" rows="5"
+                                  placeholder="Write a Message*" required>{{ old('message') }}</textarea>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
 <style>
-.contact-info-card {
-    background: #fff;
-    border: 1px solid #e8e8e8;
-    border-radius: 10px;
-    padding: 30px 20px;
-    transition: all 0.3s ease;
+/* Map & Info Section */
+.contact-map-row {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+.contact-photo-wrapper {
+    position: relative;
     height: 100%;
+    min-height: 380px;
 }
-.contact-info-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+.contact-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    min-height: 380px;
 }
-.contact-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: #FFF5F5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 15px;
-}
-.contact-icon i {
-    font-size: 22px;
-    color: #FF3B30;
-}
-.contact-info-card h5 {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-.contact-info-card p {
-    font-size: 13px;
-    color: #888;
-    margin: 0;
-    line-height: 1.7;
-}
-.contact-info-card a {
-    color: #888;
-    text-decoration: none;
-}
-.contact-info-card a:hover {
-    color: #FF3B30;
-}
-.contact-form-card {
-    background: #fff;
-    border: 1px solid #e8e8e8;
-    border-radius: 10px;
-    padding: 30px;
-}
-.contact-form-card h4 {
-    font-size: 20px;
-    font-weight: 700;
-    color: #333;
-}
-.contact-form-card .form-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: #555;
-}
-.contact-form-card .form-control {
-    height: 44px;
+.contact-overlay-card {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #c0392b;
+    color: #fff;
+    padding: 25px 30px;
     border-radius: 8px;
-    border: 1px solid #e0e0e0;
-    font-size: 14px;
+    width: 85%;
+    max-width: 400px;
+    text-align: center;
 }
-.contact-form-card textarea.form-control {
+.contact-overlay-card h5 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #fff;
+}
+.contact-overlay-card p {
+    font-size: 13px;
+    margin-bottom: 4px;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.6;
+}
+.contact-map-wrapper {
+    height: 100%;
+    min-height: 380px;
+}
+.contact-map-wrapper iframe {
+    height: 100%;
+    min-height: 380px;
+}
+
+/* Contact Form Section */
+.contact-heading {
+    color: #c0392b;
+    font-weight: 700;
+    font-size: 28px;
+}
+.contact-illustration {
+    max-width: 320px;
+    width: 100%;
+}
+.contact-input {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 12px 15px;
+    font-size: 14px;
     height: auto;
 }
-.contact-form-card .form-control:focus {
-    border-color: #FF3B30;
-    box-shadow: 0 0 0 3px rgba(255,59,48,0.1);
+.contact-input:focus {
+    border-color: #c0392b;
+    box-shadow: 0 0 0 2px rgba(192,57,43,0.1);
 }
-.btn-contact {
-    background: #FF3B30;
+textarea.contact-input {
+    resize: vertical;
+}
+.btn-submit {
+    background: #c0392b;
+    color: #fff;
     border: none;
-    padding: 12px 30px;
-    border-radius: 8px;
+    padding: 10px 35px;
+    border-radius: 4px;
     font-weight: 600;
     font-size: 15px;
+}
+.btn-submit:hover {
+    background: #a93226;
     color: #fff;
 }
-.btn-contact:hover {
-    background: #E0352B;
-    color: #fff;
-}
-.contact-map-card {
-    background: #fff;
-    border: 1px solid #e8e8e8;
-    border-radius: 10px;
-    overflow: hidden;
-}
-.contact-map {
-    height: 250px;
-    background: #f0f0f0;
-}
-.working-hours-card {
-    background: #fff;
-    border: 1px solid #e8e8e8;
-    border-radius: 10px;
-    padding: 25px;
-}
-.working-hours-card h5 {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-.hours-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.hours-list li {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid #f0f0f0;
-    font-size: 14px;
-    color: #555;
-}
-.hours-list li:last-child {
-    border-bottom: none;
-}
-.contact-social {
-    display: flex;
-    gap: 10px;
-}
-.social-link {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: #f5f5f5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #888;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-.social-link:hover {
-    background: #FF3B30;
-    color: #fff;
+
+@media (max-width: 991px) {
+    .contact-photo-wrapper,
+    .contact-photo,
+    .contact-map-wrapper,
+    .contact-map-wrapper iframe {
+        min-height: 300px;
+    }
 }
 </style>
-
-@push('styles')
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-@endpush
-
-@push('scripts')
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var map = L.map('contactMap').setView([23.7937, 90.4066], 15);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap'
-    }).addTo(map);
-    L.marker([23.7937, 90.4066]).addTo(map)
-        .bindPopup('<strong>Listee Office</strong><br>123 Main Street, Gulshan, Dhaka')
-        .openPopup();
-});
-</script>
-@endpush
 
 @endsection

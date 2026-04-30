@@ -21,12 +21,12 @@ class PageController extends Controller
         $request->validate([
             'name'    => 'required|string|max:255',
             'email'   => 'required|email',
-            'subject' => 'required|string|max:255',
+            'subject' => 'nullable|string|max:255',
             'message' => 'required|string',
         ]);
 
         ContactMessage::create($request->only(['name', 'email', 'subject', 'message']));
 
-        return back()->with('success', 'আপনার মেসেজ পাঠানো হয়েছে! ধন্যবাদ।');
+        return back()->with('success', 'Your message has been sent successfully! Thank you.');
     }
 }
