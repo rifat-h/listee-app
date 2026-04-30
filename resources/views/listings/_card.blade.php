@@ -10,7 +10,7 @@
         </span>
     </div>
     <div class="card-body">
-        <h6 class="card-title">
+        <h6 class="card-title mb-1">
             <a href="{{ route('listings.show', $listing->slug) }}" class="text-dark text-decoration-none">
                 {{ Str::limit($listing->title, 40) }}
             </a>
@@ -19,7 +19,12 @@
             <i class="fas fa-map-marker-alt text-danger"></i> {{ $listing->location }}
         </p>
         <div class="d-flex justify-content-between align-items-center">
-            <span class="fw-bold text-danger fs-5">৳{{ number_format($listing->price) }}</span>
+            <div>
+                <span class="fw-bold text-danger">৳{{ number_format($listing->price) }}</span>
+                @if($listing->original_price && $listing->original_price > $listing->price)
+                    <span class="price-original">৳{{ number_format($listing->original_price) }}</span>
+                @endif
+            </div>
             <small class="text-muted">{{ $listing->created_at->diffForHumans() }}</small>
         </div>
     </div>
