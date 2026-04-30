@@ -10,7 +10,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::where('is_active', true)->withCount('listings')->get();
-        return view('pages.category', compact('categories'));
+        return view('pages.categories', compact('categories'));
     }
 
     public function show($slug)
