@@ -1,52 +1,172 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+@extends('layouts.app')
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+@section('title', 'Register - Listee')
+
+@section('content')
+
+{{-- Breadcrumb --}}
+@include('components.breadcrumb', [
+    'title' => 'Create an Account',
+    'breadcrumbs' => [
+        ['name' => 'Home', 'url' => url('/')],
+        ['name' => 'Register']
+    ]
+])
+
+<section class="register-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-7">
+                <div class="register-card bg-white rounded shadow p-4 p-md-5">
+
+                    <div class="text-center mb-4">
+                        <h3 class="fw-bold">Create an Account</h3>
+                        <p class="text-muted">Lets start with <span class="text-danger fw-bold">Listee</span></p>
+                    </div>
+
+                    @if($errors->any())
+                        <div class="alert alert-danger mb-3">
+                            @foreach($errors->all() as $error)
+                                <p class="mb-0">{{ $error }}</p>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
+
+                        <!-- Full Name -->
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white"><i class="fas fa-user text-muted"></i></span>
+                                <input type="text" name="name" class="form-control" placeholder="Full Name"
+                                       value="{{ old('name') }}" required autofocus autocomplete="name">
+                            </div>
+                        </div>
+
+                        <!-- Email Address -->
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white"><i class="fas fa-envelope text-muted"></i></span>
+                                <input type="email" name="email" class="form-control" placeholder="Email Address"
+                                       value="{{ old('email') }}" required autocomplete="username">
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white"><i class="fas fa-lock text-muted"></i></span>
+                                <input type="password" name="password" id="registerPassword" class="form-control"
+                                       placeholder="Password" required autocomplete="new-password">
+                                <span class="input-group-text bg-white toggle-password" role="button" onclick="togglePassword()">
+                                    <i class="fas fa-eye text-muted" id="togglePasswordIcon"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Hidden Confirm Password (matches password via JS) -->
+                        <input type="hidden" name="password_confirmation" id="passwordConfirmation">
+
+                        <!-- Create Account Button -->
+                        <button type="submit" class="btn btn-danger w-100 py-2 fw-bold mb-3">Create Account</button>
+                    </form>
+
+                    <!-- Sign In Link -->
+                    <p class="text-center mb-3">
+                        Already have an account?
+                        <a href="{{ route('login') }}" class="text-danger fw-bold text-decoration-none">Sign In</a>
+                    </p>
+
+                    <!-- Divider -->
+                    <div class="divider-text text-center my-3">
+                        <span class="text-muted small">Sign in with Social Media Accounts</span>
+                    </div>
+
+                    <!-- Social Login Buttons -->
+                    <div class="social-login">
+                        <button type="button" class="btn btn-dark w-100 mb-2 py-2">
+                            <i class="fab fa-apple me-2"></i> Sign in with Apple
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary w-100 mb-2 py-2">
+                            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="18" class="me-2">
+                            Sign in with Google
+                        </button>
+                        <button type="button" class="btn btn-primary w-100 py-2" style="background-color: #1877F2; border-color: #1877F2;">
+                            <i class="fab fa-facebook-f me-2"></i> Continue with Facebook
+                        </button>
+                    </div>
+
+                </div>
+            </div>
         </div>
+    </div>
+</section>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+@endsection
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+@push('styles')
+<style>
+.register-section {
+    background-color: #f8f9fa;
+}
+.register-card {
+    border: none;
+}
+.register-card .input-group-text {
+    border-right: none;
+}
+.register-card .input-group .form-control {
+    border-left: none;
+}
+.register-card .input-group .form-control:focus {
+    box-shadow: none;
+    border-color: #dee2e6;
+}
+.register-card .input-group-text.toggle-password {
+    border-left: none;
+    cursor: pointer;
+}
+.divider-text {
+    position: relative;
+}
+.divider-text::before,
+.divider-text::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 25%;
+    height: 1px;
+    background: #dee2e6;
+}
+.divider-text::before {
+    left: 0;
+}
+.divider-text::after {
+    right: 0;
+}
+</style>
+@endpush
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+@push('scripts')
+<script>
+function togglePassword() {
+    var passwordInput = document.getElementById('registerPassword');
+    var confirmInput = document.getElementById('passwordConfirmation');
+    var icon = document.getElementById('togglePasswordIcon');
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        passwordInput.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+document.querySelector('form').addEventListener('submit', function() {
+    document.getElementById('passwordConfirmation').value = document.getElementById('registerPassword').value;
+});
+</script>
+@endpush
