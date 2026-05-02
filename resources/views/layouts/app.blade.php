@@ -29,7 +29,6 @@
     <body class="font-sans antialiased">
         {{-- Header --}}
         @include('layouts.header')
-
         <!-- Flash Messages -->
         <div class="container mt-3">
             @if(session('success'))
@@ -74,5 +73,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
         @stack('scripts')
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </body>
 </html>

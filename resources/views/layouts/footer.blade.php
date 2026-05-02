@@ -26,7 +26,7 @@
                 <a href="{{ url('/') }}">
                     <img src="{{ asset('images/logo-white.png') }}" alt="Listee" height="40">
                 </a>
-                <p class="mt-3 text-muted small">
+                <p class="mt-3 text-white-50 small">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et magna aliqua.
                 </p>
                 <div class="social-links d-flex gap-2 mt-3">
@@ -39,49 +39,49 @@
 
             <!-- About Us Links -->
             <div class="col-lg-2 col-md-6 mb-4">
-                <h6 class="fw-bold mb-3">About Us</h6>
+<h6 class="fw-bold mb-3 text-white">About Us</h6>
                 <ul class="list-unstyled small">
-                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Our Product</a></li>
-                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Documentation</a></li>
-                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Our Services</a></li>
-                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Get Started</a></li>
-                    <li class="mb-2"><a href="{{ url('/contact') }}" class="text-muted text-decoration-none">Contact Us</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Our Product</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Documentation</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Our Services</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Get Started</a></li>
+                    <li class="mb-2"><a href="{{ url('/contact') }}" class="text-white-50 text-decoration-none">Contact Us</a></li>
                 </ul>
             </div>
 
             <!-- Quick Links -->
             <div class="col-lg-2 col-md-6 mb-4">
-                <h6 class="fw-bold mb-3">Quick Links</h6>
+                <h6 class="fw-bold mb-3 text-white">Quick Links</h6>
                 <ul class="list-unstyled small">
-                    <li class="mb-2"><a href="{{ url('/listings') }}" class="text-muted text-decoration-none">Market Place</a></li>
-                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Documentation</a></li>
-                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Customers</a></li>
-                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Carriers</a></li>
-                    <li class="mb-2"><a href="{{ url('/blog') }}" class="text-muted text-decoration-none">Our Blog</a></li>
+                    <li class="mb-2"><a href="{{ url('/listings') }}" class="text-white-50 text-decoration-none">Market Place</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Documentation</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Customers</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Carriers</a></li>
+                    <li class="mb-2"><a href="{{ url('/blog') }}" class="text-white-50 text-decoration-none">Our Blog</a></li>
                 </ul>
             </div>
 
             <!-- Top Cities -->
             <div class="col-lg-2 col-md-6 mb-4">
-                <h6 class="fw-bold mb-3">Top Cities</h6>
+                <h6 class="fw-bold mb-3 text-white">Top Cities</h6>
                 <ul class="list-unstyled small">
-                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Manhattan</a></li>
-                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Los Angeles</a></li>
-                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Houston</a></li>
-                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Chicago</a></li>
-                    <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Alabama</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Manhattan</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Los Angeles</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Houston</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Chicago</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Alabama</a></li>
                 </ul>
             </div>
 
             <!-- Communication -->
             <div class="col-lg-3 col-md-6 mb-4">
-                <h6 class="fw-bold mb-3">Communication</h6>
+                <h6 class="fw-bold mb-3 text-white">Communication</h6>
                 <div class="mb-3">
-                    <p class="text-muted mb-0 small"><i class="fas fa-phone text-danger me-2"></i> Call Us</p>
+                    <p class="text-white-50 mb-0 small"><i class="fas fa-phone text-danger me-2"></i> Call Us</p>
                     <p class="fw-bold small">+017 123 456 78</p>
                 </div>
                 <div>
-                    <p class="text-muted mb-0 small"><i class="fas fa-envelope text-danger me-2"></i> Send Message</p>
+                    <p class="text-white-50 mb-0 small"><i class="fas fa-envelope text-danger me-2"></i> Send Message</p>
                     <p class="fw-bold small">listee@example.com</p>
                 </div>
             </div>
@@ -91,13 +91,13 @@
 
         <!-- Bottom Footer -->
         <div class="d-flex justify-content-between align-items-center flex-wrap">
-            <p class="text-muted mb-0 small">All Copyrights Reserved &copy; {{ date('Y') }} - Listee.</p>
+            <p class="text-white-50 mb-0 small">All Copyrights Reserved &copy; {{ date('Y') }} - Listee.</p>
             <div class="d-flex gap-3 align-items-center">
-                <a href="{{ url('/privacy') }}" class="text-muted text-decoration-none small">Privacy</a>
-                <span class="text-muted">|</span>
-                <a href="{{ url('/faq') }}" class="text-muted text-decoration-none small">Faq</a>
-                <span class="text-muted">|</span>
-                <a href="{{ url('/terms') }}" class="text-muted text-decoration-none small">Terms</a>
+                <a href="{{ url('/privacy') }}" class="text-white-50 text-decoration-none small">Privacy</a>
+                <span class="text-white-50">|</span>
+                <a href="{{ url('/faq') }}" class="text-white-50 text-decoration-none small">Faq</a>
+                <span class="text-white-50">|</span>
+                <a href="{{ url('/terms') }}" class="text-white-50 text-decoration-none small">Terms</a>
             </div>
         </div>
     </div>
