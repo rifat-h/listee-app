@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Fix Tailwind v4 .collapse (visibility: collapse) overriding Bootstrap 5 */
+.collapse {
+    visibility: visible !important;
+}
+
 @layer base {
     body {
         font-family: 'Figtree', system-ui, sans-serif;
